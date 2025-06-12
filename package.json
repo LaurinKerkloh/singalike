@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "tailwindcss-class-sorter-erb": "^0.11.0",
+    "tailwindcss": "^4.0.0"
+  }
+}
