@@ -16,6 +16,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_12_090023) do
     t.integer "song_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["identifier", "song_id"], name: "index_likes_on_identifier_and_song_id", unique: true
     t.index ["song_id"], name: "index_likes_on_song_id"
   end
 

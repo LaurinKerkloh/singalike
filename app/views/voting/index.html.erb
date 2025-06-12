@@ -1,0 +1,4 @@
+<%= turbo_stream_from :likes %>
+<div class="flex flex-col gap-2">
+  <%= render partial: "song", collection: @songs %>
+</div>
