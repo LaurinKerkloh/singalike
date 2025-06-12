@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_12_081751) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_12_090023) do
+  create_table "likes", force: :cascade do |t|
+    t.string "identifier"
+    t.integer "song_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["song_id"], name: "index_likes_on_song_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "ip_address"
@@ -18,6 +26,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_12_081751) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+  create_table "songs", force: :cascade do |t|
+    t.string "title"
+    t.string "artist"
+    t.text "lyrics"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -28,5 +44,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_12_081751) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "likes", "songs"
   add_foreign_key "sessions", "users"
 end
