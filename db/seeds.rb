@@ -9,6 +9,8 @@
 #   end
 User.create_with(password: "password").find_or_create_by!(email_address: "admin@example.com")
 
-100.times do |index|
-  Song.create_with(lyrics: rand(4..8).times.collect { Faker::Lorem.paragraph(sentence_count: 10, random_sentences_to_add: 20) }.join("\n\n")).find_or_create_by!(title: Faker::Music::RockBand.song, artist: Faker::Music::RockBand.name)
+if Rails.env.development?
+  100.times do |index|
+    Song.create_with(lyrics: rand(4..8).times.collect { Faker::Lorem.paragraph(sentence_count: 10, random_sentences_to_add: 20) }.join("\n\n")).find_or_create_by!(title: Faker::Music::RockBand.song, artist: Faker::Music::RockBand.name)
+  end
 end
