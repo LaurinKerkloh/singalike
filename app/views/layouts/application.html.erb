@@ -26,7 +26,27 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5">
+    <header class="py-2 bg-gray-100">
+      <div class="container mx-auto px-5 flex justify-between items-center">
+        <div>
+          <%= link_to root_path do %>
+            <%= image_tag "ddc_logo.png", size: 50 %>
+          <% end %>
+        </div>
+        <% if authenticated? %>
+          <%=
+            button_to "Logout",
+                      [:session],
+                      method: :delete,
+                      class:
+                        "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer"
+          %>
+        <% else %>
+          <%= link_to "Login", %i[new session], class: "text-gray-700 underline hover:no-underline" %>
+        <% end %>
+      </div>
+    </header>
+    <main class="container mx-auto px-5 pt-5">
       <%= yield %>
     </main>
   </body>
