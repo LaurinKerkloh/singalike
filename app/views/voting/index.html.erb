@@ -1,7 +1,7 @@
 <%= turbo_stream_from :likes %>
 <% if @songs.empty? %>
-  <div>Es wurden noch keine Songs hinzugefügt.</div>
-  <%= link_to "Song hinzufügen!", Song, class: "text-gray-700 underline hover:no-underline" %>
+  <div>No songs have been added jet.</div>
+  <%= link_to "Add Song!", Song, class: "text-gray-700 underline hover:no-underline" %>
 <% end %>
 <div class="flex flex-col gap-2">
   <%= render partial: "song", collection: @songs %>
