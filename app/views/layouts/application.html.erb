@@ -34,13 +34,16 @@
           <% end %>
         </div>
         <% if authenticated? %>
-          <%=
-            button_to "Logout",
-                      [:session],
-                      method: :delete,
-                      class:
-                        "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer"
-          %>
+          <div class="flex gap-2 items-center">
+            <%= link_to "Songs", Song, class: "text-gray-700 underline hover:no-underline" %>
+            <%=
+              button_to "Logout",
+                        [:session],
+                        method: :delete,
+                        class:
+                          "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer"
+            %>
+          </div>
         <% else %>
           <%= link_to "Login", %i[new session], class: "text-gray-700 underline hover:no-underline" %>
         <% end %>
