@@ -7,11 +7,11 @@ image: laurinkerkloh/singalike
 # Deploy to these servers.
 servers:
   web:
-    - ddc.kerkloh.com
+    - mitsingen.discdayscologne.de
 
 proxy:
   ssl: true
-  host: ddc.kerkloh.com
+  host: mitsingen.discdayscologne.de
 
 registry:
   server: ghcr.io
