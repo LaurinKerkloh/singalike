@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :songs
+  resources :songs do
+    resource :play, only: [:update]
+  end
   resources :likes, only: [:create, :destroy]
   resource :session, only: [:new, :create, :destroy]
   resources :passwords, param: :token

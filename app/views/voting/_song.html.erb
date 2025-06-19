@@ -1,19 +1,54 @@
-<%# locals: (song:) %>
-<div class="rounded border-1 p-2 flex justify-between items-center gap-1">
-  <div>
-    <div class="font-semibold text-xl"><%= song.title %></div>
-    <div class="font-light"><%= song.artist %></div>
-  </div>
-  <div class="text-xl text-nowrap">
-    <%= song.likes.count %>
-    <% if song.liked? %>
-      <%= button_to song.like, method: :delete, form_class: "inline-block" do %>
-        <%= icon "heart-fill", class: "text-red-500" %>
-      <% end %>
-    <% else %>
-      <%= button_to likes_path, method: :post, params: { like: { song_id: song.id } }, form_class: "inline-block" do %>
-        <%= icon "heart", class: "text-red-500" %>
-      <% end %>
-    <% end %>
-  </div>
+<%# locals: (song:, hide_likes: false) %>
+<div class="rounded border-1 p-2" id="<%= dom_id(song) %>">
+  <details class="group">
+    <summary class="list-none p-2">
+      <div class="flex gap-2 items-center">
+        <div class="hidden group-open:block"><%= icon "caret-down-fill" %></div>
+        <div class="block group-open:hidden"><%= icon "caret-right-fill" %></div>
+        <div class="flex-1 flex justify-between items-center gap-1">
+          <div>
+            <div class="font-semibold text-xl"><%= song.title %></div>
+            <div class="font-light"><%= song.artist %></div>
+          </div>
+          <div class="flex gap-4 items-center">
+            <% unless hide_likes %>
+              <div class="text-xl text-nowrap">
+                <%= song.likes.count %>
+                <% if song.liked? %>
+                  <%= button_to song.like, method: :delete, form_class: "inline-block" do %>
+                    <%= icon "heart-fill", class: "text-red-500" %>
+                  <% end %>
+                <% else %>
+                  <%=
+                    button_to likes_path,
+                              method: :post,
+                              params: {
+                                like: {
+                                  song_id: song.id,
+                                },
+                              },
+                              form_class: "inline-block" do
+                  %>
+                    <%= icon "heart", class: "text-red-500" %>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+            <% if authenticated? %>
+              <div>
+                <%= button_to [song, :play], method: :patch, params: { song: { playing: !song.playing } } do %>
+                  <% if song.playing %>
+                    <%= icon "stop-fill", class: "text-xl" %>
+                  <% else %>
+                    <%= icon "play-fill", class: "text-xl" %>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </summary>
+    <%= simple_format(song.lyrics) %>
+  </details>
 </div>

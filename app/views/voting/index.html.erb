@@ -1,4 +1,10 @@
 <%= turbo_stream_from :likes %>
+<%= turbo_stream_from :songs %>
+<% if @currently_playing.present? %>
+  <div class="text-xl mb-2">Currently playing:</div>
+  <%= render "song", song: @currently_playing, hide_likes: true %>
+  <div class="text-xl mt-8 mb-2">Next up:</div>
+<% end %>
 <% if @songs.empty? %>
   <div>No songs have been added jet.</div>
   <%= link_to "Add Song!", Song, class: "text-gray-700 underline hover:no-underline" %>
