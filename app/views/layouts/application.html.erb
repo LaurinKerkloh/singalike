@@ -37,8 +37,8 @@
         </div>
         <div class="flex items-center gap-4">
           <% if authenticated? %>
-            <div class="flex items-center gap-4">
-              <%= link_to "Songs", Song, class: "text-gray-700 underline hover:no-underline" %>
+            <div class="flex items-center gap-2">
+              <%= link_to "Songs", Song, class: "text-gray-700 underline hover:no-underline dark:text-gray-300" %>
               <%=
                 button_to "Logout",
                           [:session],

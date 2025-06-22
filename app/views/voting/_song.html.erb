@@ -1,68 +1,35 @@
 <%# locals: (song:, hide_likes: false, prefix: nil) %>
-<div class="rounded border-1" id="<%= dom_id(song, prefix) %>">
-  <%=
-    tag.details class: "group",
-                id: dom_id(song, [:details, prefix].join("_")),
-                data: {
-                  controller: "prevent-morph",
-                  prevent_morph_attribute_value: "open",
-                } do
-  %>
-    <summary class="list-none p-4 group-open:border-b-1">
-      <div class="flex items-center gap-2">
-        <div class="hidden group-open:block"><%= icon "caret-down-fill" %></div>
-        <div class="block group-open:hidden"><%= icon "caret-right-fill" %></div>
-        <div class="flex flex-1 items-center justify-between gap-1">
-          <div>
-            <div class="text-xl font-semibold"><%= song.title %></div>
-            <div class="font-light"><%= song.artist %></div>
-            <% if song.last_played.present? && !hide_likes %>
-              <div class="text-xs font-extralight">Played
-                <%= time_ago_in_words(song.last_played) %>
-                ago</div>
-            <% end %>
-          </div>
-          <div class="flex items-center gap-4">
-            <% unless hide_likes %>
-              <div class="text-xl text-nowrap">
-                <%= song.likes.count %>
-                <% if song.liked? %>
-                  <%= button_to song.like, method: :delete, form_class: "inline-block" do %>
-                    <%= icon "heart-fill", class: "text-red-500" %>
-                  <% end %>
-                <% else %>
-                  <%=
-                    button_to likes_path,
-                              method: :post,
-                              params: {
-                                like: {
-                                  song_id: song.id,
-                                },
-                              },
-                              form_class: "inline-block" do
-                  %>
-                    <%= icon "heart", class: "text-red-500" %>
-                  <% end %>
-                <% end %>
-              </div>
-            <% end %>
-            <% if authenticated? %>
-              <div>
-                <%= button_to [song, :play], method: :patch, params: { song: { playing: !song.playing } } do %>
-                  <% if song.playing %>
-                    <%= icon "stop-fill", class: "text-xl" %>
-                  <% else %>
-                    <%= icon "play-fill", class: "text-xl" %>
-                  <% end %>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </summary>
-    <div class="p-4">
-      <%= simple_format(song.lyrics) %>
+<div class="rounded border-1 p-2" id="<%= dom_id(song, prefix) %>">
+  <div class="flex flex-1 items-center justify-between gap-1">
+    <div>
+      <div class="text-xl font-semibold"><%= song.title %></div>
+      <div class="font-light"><%= song.artist %></div>
+      <% unless hide_likes %>
+        <% if song.playing? %>
+          <div class="text-xs font-extralight">Currently playing</div>
+        <% elsif song.last_played.present? && %>
+          <div class="text-xs font-extralight">Played
+            <%= time_ago_in_words(song.last_played) %>
+            ago</div>
+        <% end %>
+      <% end %>
     </div>
-  <% end %>
+    <div class="flex items-center gap-4">
+      <%= link_to "Lyrics", [song, :lyrics], class: "text-gray-700 underline hover:no-underline dark:text-gray-300" %>
+      <% unless hide_likes %>
+        <%= render "songs/likes", song: song %>
+      <% end %>
+      <% if authenticated? %>
+        <div>
+          <%= button_to [song, :play], method: :patch, params: { song: { playing: !song.playing } } do %>
+            <% if song.playing %>
+              <%= icon "stop-fill", class: "text-xl" %>
+            <% else %>
+              <%= icon "play-fill", class: "text-xl" %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

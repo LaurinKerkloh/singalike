@@ -17,9 +17,7 @@ class Song < ApplicationRecord
   after_save :ensure_only_one_playing, if: -> { playing_previously_changed?(to: true) }
   after_save :remove_likes, if: -> { playing_previously_changed?(to: true) }
 
-  after_create_commit -> { broadcast_refresh_later_to(:songs) }
-  after_update_commit -> { broadcast_refresh_later_to(:songs) }
-  after_destroy_commit -> { broadcast_refresh_later_to(:songs) }
+  broadcasts_refreshes_to ->(_) { :songs }
 
   def liked?(identifier = Current.identifier)
     likes.any? { _1.identifier == identifier }

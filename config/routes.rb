@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   resources :songs do
     resource :play, only: [:update]
+    resource :lyrics, only: [:show]
   end
+
   resources :likes, only: [:create, :destroy]
+
   resource :session, only: [:new, :create, :destroy]
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

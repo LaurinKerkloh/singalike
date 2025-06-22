@@ -1,0 +1,17 @@
+<%= link_to "Back to Voting", root_path, class: "text-gray-700 underline hover:no-underline dark:text-gray-300" %>
+
+<div class="my-8 flex flex-1 items-center justify-between gap-1">
+  <div>
+    <div class="text-xl font-semibold"><%= @song.title %></div>
+    <div class="font-light"><%= @song.artist %></div>
+    <% if @song.playing? %>
+      <div class="text-xs font-extralight">Currently playing</div>
+    <% elsif @song.last_played.present? && %>
+      <div class="text-xs font-extralight">Played
+        <%= time_ago_in_words(@song.last_played) %>
+        ago</div>
+    <% end %>
+  </div>
+  <%= render "songs/likes", song: @song %>
+</div>
+<%= simple_format(@song.lyrics) %>

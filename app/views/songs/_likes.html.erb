@@ -1,0 +1,13 @@
+<%# locals: (song:) %>
+<div class="text-xl text-nowrap">
+  <%= song.likes.count %>
+  <% if song.liked? %>
+    <%= button_to song.like, method: :delete, form_class: "inline-block" do %>
+      <%= icon "heart-fill", class: "text-red-500" %>
+    <% end %>
+  <% else %>
+    <%= button_to likes_path, method: :post, params: { like: { song_id: song.id } }, form_class: "inline-block" do %>
+      <%= icon "heart", class: "text-red-500" %>
+    <% end %>
+  <% end %>
+</div>

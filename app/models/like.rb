@@ -5,8 +5,7 @@ class Like < ApplicationRecord
 
   before_validation :set_identifier
 
-  after_create_commit -> { broadcast_refresh_later_to(:likes) }
-  after_destroy_commit -> { broadcast_refresh_later_to(:likes) }
+  broadcasts_refreshes_to ->(_) { :likes }
 
   def set_identifier
     self.identifier = Current.identifier
