@@ -1,6 +1,6 @@
 <%# locals: (song:) %>
 <div class="text-xl text-nowrap">
-  <%= song.likes.count %>
+  <%= song.likes.size %>
   <% if song.liked? %>
     <%= button_to song.like, method: :delete, form_class: "inline-block" do %>
       <%= icon "heart-fill", class: "text-red-500" %>

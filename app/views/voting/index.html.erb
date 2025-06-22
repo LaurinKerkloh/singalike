@@ -1,21 +1,43 @@
 <%= turbo_stream_from :likes %>
 <%= turbo_stream_from :songs %>
-<% if @currently_playing.present? %>
-  <div class="mb-2 text-xl">Currently playing</div>
-  <%= render "song", song: @currently_playing, hide_likes: true, prefix: :currently_playing %>
-<% end %>
-<% if @next_up.present? %>
-  <div class="mt-8 mb-2 text-xl">Next up</div>
-  <div class="flex flex-col gap-2">
-    <%= render partial: "song", collection: @next_up, locals: { prefix: :next_up } %>
-  </div>
-<% end %>
-<% if @songs.empty? %>
-  <div>No songs have been added yet</div>
-  <%= link_to "Add Song!", Song, class: "text-gray-700 underline hover:no-underline" %>
-<% else %>
-  <div class="mt-8 mb-2 text-xl">All Songs</div>
-  <div class="flex flex-col gap-2">
-    <%= render partial: "song", collection: @songs %>
-  </div>
-<% end %>
+<div class="flex flex-col gap-8">
+  <% if @currently_playing.present? %>
+    <div>
+      <div class="mb-2 text-xl">Currently playing</div>
+      <%= render "song", song: @currently_playing, hide_likes: true, prefix: :currently_playing %>
+    </div>
+  <% end %>
+  <% if @next_up.present? %>
+    <div>
+      <div class="mb-2 text-xl">Next up</div>
+      <div class="flex flex-col gap-2">
+        <%= render partial: "song", collection: @next_up, locals: { prefix: :next_up } %>
+      </div>
+    </div>
+  <% end %>
+  <% if @songs.empty? %>
+    <div>
+      <div>No songs have been added yet</div>
+      <%= link_to "Add Song!", Song, class: "text-gray-700 underline hover:no-underline" %>
+    </div>
+  <% else %>
+    <div>
+      <div class="mb-2 text-xl">All Songs</div>
+      <div class="flex flex-col gap-2">
+        <%= render partial: "song", collection: @songs %>
+      </div>
+    </div>
+  <% end %>
+  <% if authenticated? %>
+    <%=
+      button_to "Reset",
+                :resets,
+                method: :post,
+                class:
+                  "w-full cursor-pointer rounded-md bg-red-600 px-3.5 py-2.5 text-center font-medium text-white hover:bg-red-500",
+                data: {
+                  turbo_confirm: "Reset all likes and last played data?",
+                }
+    %>
+  <% end %>
+</div>

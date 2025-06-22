@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :songs do
-    resource :play, only: [:update]
+    resource :play, only: [:update, :show]
     resource :lyrics, only: [:show]
   end
 
@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resource :session, only: [:new, :create, :destroy]
   resources :passwords, param: :token
+  resources :resets, only: :create
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
