@@ -1,16 +1,23 @@
 <%# locals: (song:, hide_likes: false) %>
-<div class="rounded border-1 p-2" id="<%= dom_id(song) %>">
-  <details class="group">
-    <summary class="list-none p-2">
-      <div class="flex gap-2 items-center">
+<div class="rounded border-1" id="<%= dom_id(song) %>">
+  <%=
+    tag.details class: "group",
+                id: dom_id(song, :details),
+                data: {
+                  controller: "prevent-morph",
+                  prevent_morph_attribute_value: "open",
+                } do
+  %>
+    <summary class="list-none p-4 group-open:border-b-1">
+      <div class="flex items-center gap-2">
         <div class="hidden group-open:block"><%= icon "caret-down-fill" %></div>
         <div class="block group-open:hidden"><%= icon "caret-right-fill" %></div>
-        <div class="flex-1 flex justify-between items-center gap-1">
+        <div class="flex flex-1 items-center justify-between gap-1">
           <div>
-            <div class="font-semibold text-xl"><%= song.title %></div>
+            <div class="text-xl font-semibold"><%= song.title %></div>
             <div class="font-light"><%= song.artist %></div>
           </div>
-          <div class="flex gap-4 items-center">
+          <div class="flex items-center gap-4">
             <% unless hide_likes %>
               <div class="text-xl text-nowrap">
                 <%= song.likes.count %>
@@ -49,6 +56,8 @@
         </div>
       </div>
     </summary>
-    <%= simple_format(song.lyrics) %>
-  </details>
+    <div class="p-4">
+      <%= simple_format(song.lyrics) %>
+    </div>
+  <% end %>
 </div>
