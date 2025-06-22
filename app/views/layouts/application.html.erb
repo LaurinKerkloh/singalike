@@ -23,31 +23,35 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "theme_init", defer: false %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <header class="py-2 bg-gray-100">
-      <div class="container mx-auto px-5 flex justify-between items-center">
+  <body class="dark:bg-gray-950 dark:text-white" data-controller="theme">
+    <header class="bg-gray-100 py-2 dark:border-b-1 dark:border-b-gray-800 dark:bg-gray-950">
+      <div class="container mx-auto flex items-center justify-between px-5">
         <div>
           <%= link_to root_path do %>
             <%= image_tag "ddc_logo.png", size: 50 %>
           <% end %>
         </div>
-        <% if authenticated? %>
-          <div class="flex gap-2 items-center">
-            <%= link_to "Songs", Song, class: "text-gray-700 underline hover:no-underline" %>
-            <%=
-              button_to "Logout",
-                        [:session],
-                        method: :delete,
-                        class:
-                          "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer"
-            %>
-          </div>
-        <% else %>
-          <%= link_to "Login", %i[new session], class: "text-gray-700 underline hover:no-underline" %>
-        <% end %>
+        <div class="flex items-center gap-4">
+          <% if authenticated? %>
+            <div class="flex items-center gap-4">
+              <%= link_to "Songs", Song, class: "text-gray-700 underline hover:no-underline" %>
+              <%=
+                button_to "Logout",
+                          [:session],
+                          method: :delete,
+                          class:
+                            "w-full cursor-pointer rounded-md bg-red-600 px-3.5 py-2.5 font-medium text-white hover:bg-red-500 sm:w-auto"
+              %>
+            </div>
+          <% else %>
+            <%= link_to "Login", %i[new session], class: "text-gray-700 underline hover:no-underline dark:text-gray-300" %>
+          <% end %>
+          <%= render "theme_toggle" %>
+        </div>
       </div>
     </header>
     <main class="container mx-auto px-5 pt-5">
