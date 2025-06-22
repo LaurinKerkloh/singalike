@@ -1,3 +1,30 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer utilities {
+    @property --angle {
+        initial-value: 0deg;
+        inherits: false;
+        syntax: "<angle>";
+    }
+
+    .crazy-border {
+        background:
+            linear-gradient(var(--background)) padding-box,
+            linear-gradient(var(--angle), var(--color-violet-500), var(--color-fuchsia-600)) border-box;
+        border-color: transparent;
+
+        --background: white;
+        @variant dark {
+            --background: var(--color-gray-950);
+        }
+
+        animation: 3s infinite rotate-gradient;
+    }
+    @keyframes rotate-gradient {
+        to {
+            --angle: 360deg;
+        }
+    }
+}

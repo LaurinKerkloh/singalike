@@ -1,5 +1,5 @@
 class Like < ApplicationRecord
-  belongs_to :song
+  belongs_to :song, touch: true
 
   validates :identifier, uniqueness: {scope: :song_id}
 

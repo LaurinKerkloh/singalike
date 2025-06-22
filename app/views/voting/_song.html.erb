@@ -1,24 +1,29 @@
-<%# locals: (song:, hide_likes: false, prefix: nil) %>
-<div class="rounded border-1 p-2" id="<%= dom_id(song, prefix) %>">
+<%# locals: (song:, is_current: false, prefix: nil) %>
+<%= tag.div class: ["rounded p-2", { "border-1": !is_current, "crazy-border border-3": is_current }] do %>
   <div class="flex flex-1 items-center justify-between gap-1">
     <div>
       <div class="text-xl font-semibold"><%= song.title %></div>
       <div class="font-light"><%= song.artist %></div>
-      <% unless hide_likes %>
+      <% unless is_current %>
         <% if song.playing? %>
-          <div class="text-xs font-extralight">Currently playing</div>
+          <div class="text-xs font-extralight">Currently singing</div>
         <% elsif song.last_played.present? && %>
-          <div class="text-xs font-extralight">Played
+          <div class="text-xs font-extralight">Sung
             <%= time_ago_in_words(song.last_played) %>
             ago</div>
         <% end %>
       <% end %>
     </div>
-    <div class="flex items-center gap-4">
-      <%= link_to "Lyrics", [song, :lyrics], class: "text-gray-700 underline hover:no-underline dark:text-gray-300" %>
-      <% unless hide_likes %>
-        <%= render "songs/likes", song: song %>
+    <div class="flex items-center gap-4"><% if is_current %>
+        <%=
+          link_to "Sing along",
+                  song_lyrics_path(:current),
+                  class: "rounded bg-linear-to-r from-violet-500 to-fuchsia-600 px-2 py-1 text-white"
+        %>
+      <% else %>
+        <%= link_to "Lyrics", [song, :lyrics], class: "text-gray-700 underline hover:no-underline dark:text-gray-300" %>
       <% end %>
+      <%= render "songs/likes", song: song %>
       <% if authenticated? %>
         <div>
           <%= button_to [song, :play], method: :patch, params: { song: { playing: !song.playing } } do %>
@@ -32,4 +37,4 @@
       <% end %>
     </div>
   </div>
-</div>
+<% end %>

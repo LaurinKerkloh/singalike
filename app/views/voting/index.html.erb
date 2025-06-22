@@ -3,8 +3,8 @@
 <div class="flex flex-col gap-8">
   <% if @currently_playing.present? %>
     <div>
-      <div class="mb-2 text-xl">Currently playing</div>
-      <%= render "song", song: @currently_playing, hide_likes: true, prefix: :currently_playing %>
+      <div class="mb-2 text-xl">Currently singing</div>
+      <%= render "song", song: @currently_playing, is_current: true, prefix: :currently_playing %>
     </div>
   <% end %>
   <% if @next_up.present? %>
