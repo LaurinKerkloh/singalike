@@ -1,6 +1,6 @@
 <%# locals: (song:, is_current: false, prefix: nil) %>
 <%= tag.div class: ["rounded p-2", { "border-1": !is_current, "crazy-border border-3": is_current }] do %>
-  <div class="flex flex-1 items-center justify-between gap-1">
+  <div class="flex flex-1 items-center justify-between gap-2">
     <div>
       <div class="text-xl font-semibold"><%= song.title %></div>
       <div class="font-light"><%= song.artist %></div>
@@ -14,11 +14,11 @@
         <% end %>
       <% end %>
     </div>
-    <div class="flex items-center gap-4"><% if is_current %>
+    <div class="flex items-center gap-2"><% if is_current %>
         <%=
           link_to "Sing along",
                   song_lyrics_path(:current),
-                  class: "rounded bg-linear-to-r from-violet-500 to-fuchsia-600 px-2 py-1 text-white"
+                  class: "rounded bg-linear-to-r from-violet-500 to-fuchsia-600 px-2 py-1 text-nowrap text-white"
         %>
       <% else %>
         <%= link_to "Lyrics", [song, :lyrics], class: "text-gray-700 underline hover:no-underline dark:text-gray-300" %>
