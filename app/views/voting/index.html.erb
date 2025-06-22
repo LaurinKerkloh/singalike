@@ -2,13 +2,20 @@
 <%= turbo_stream_from :songs %>
 <% if @currently_playing.present? %>
   <div class="mb-2 text-xl">Currently playing:</div>
-  <%= render "song", song: @currently_playing, hide_likes: true %>
+  <%= render "song", song: @currently_playing, hide_likes: true, prefix: :currently_playing %>
+<% end %>
+<% if @next_up.present? %>
   <div class="mt-8 mb-2 text-xl">Next up:</div>
+  <div class="flex flex-col gap-2">
+    <%= render partial: "song", collection: @next_up, locals: { prefix: :next_up } %>
+  </div>
 <% end %>
 <% if @songs.empty? %>
   <div>No songs have been added jet.</div>
   <%= link_to "Add Song!", Song, class: "text-gray-700 underline hover:no-underline" %>
+<% else %>
+  <div class="mt-8 mb-2 text-xl">All Songs:</div>
+  <div class="flex flex-col gap-2">
+    <%= render partial: "song", collection: @songs %>
+  </div>
 <% end %>
-<div class="flex flex-col gap-2">
-  <%= render partial: "song", collection: @songs %>
-</div>

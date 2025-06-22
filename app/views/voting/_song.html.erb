@@ -1,8 +1,8 @@
-<%# locals: (song:, hide_likes: false) %>
-<div class="rounded border-1" id="<%= dom_id(song) %>">
+<%# locals: (song:, hide_likes: false, prefix: nil) %>
+<div class="rounded border-1" id="<%= dom_id(song, prefix) %>">
   <%=
     tag.details class: "group",
-                id: dom_id(song, :details),
+                id: dom_id(song, [:details, prefix].join("_")),
                 data: {
                   controller: "prevent-morph",
                   prevent_morph_attribute_value: "open",
@@ -16,6 +16,11 @@
           <div>
             <div class="text-xl font-semibold"><%= song.title %></div>
             <div class="font-light"><%= song.artist %></div>
+            <% if song.last_played.present? && !hide_likes %>
+              <div class="text-xs font-extralight">Played
+                <%= time_ago_in_words(song.last_played) %>
+                ago</div>
+            <% end %>
           </div>
           <div class="flex items-center gap-4">
             <% unless hide_likes %>

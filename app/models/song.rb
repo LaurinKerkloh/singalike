@@ -5,10 +5,11 @@ class Song < ApplicationRecord
     order(:title)
   }
 
-  scope :ordered_by_likes, -> {
+  scope :next_up, -> {
     left_joins(:likes)
       .select("songs.*, COUNT(likes.id) AS likes_count")
       .group(:id)
+      .having("likes_count >= 1")
       .order("likes_count DESC", "songs.title ASC")
   }
 
