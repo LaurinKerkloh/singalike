@@ -1,24 +1,12 @@
-# README
+# Singalike
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple web app to pick a song to sing along, e.g. when sitting around a campfire with a guitar.
 
-Things you may want to cover:
+## How it works
 
-- Ruby version
+Songs including their lyrics (and chords) are added to the app.
+Every one can vote for the added songs.
 
-- System dependencies
+One person chooses from the top voted songs which one is sung/played next.
 
-- Configuration
-
-- Database creation
-
-- Database initialization
-
-- How to run the test suite
-
-- Services (job queues, cache servers, search engines, etc.)
-
-- Deployment instructions
-
-- ...
+Every one has a great time!
