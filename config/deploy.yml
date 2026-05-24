@@ -7,18 +7,14 @@ image: laurinkerkloh/singalike
 # Deploy to these servers.
 servers:
   web:
-    - mitsingen.discdayscologne.de
+    - sing.kerkloh.com
+
+registry:
+  server: localhost:5555
 
 proxy:
   ssl: true
-  host: mitsingen.discdayscologne.de
-
-registry:
-  server: ghcr.io
-  username: LaurinKerkloh
-
-  password:
-    - KAMAL_REGISTRY_PASSWORD
+  host: sing.kerkloh.com
 
 # Inject ENV variables into containers (secrets come from .kamal/secrets).
 env:

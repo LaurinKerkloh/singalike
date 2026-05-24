@@ -10,39 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_19_072825) do
+ActiveRecord::Schema[8.1].define(version: 2025_06_19_072825) do
   create_table "likes", force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.string "identifier"
     t.integer "song_id", null: false
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identifier", "song_id"], name: "index_likes_on_identifier_and_song_id", unique: true
     t.index ["song_id"], name: "index_likes_on_song_id"
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "ip_address"
-    t.string "user_agent"
     t.datetime "created_at", null: false
+    t.string "ip_address"
     t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.integer "user_id", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
   create_table "songs", force: :cascade do |t|
-    t.string "title"
     t.string "artist"
-    t.text "lyrics"
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "playing", default: false, null: false
     t.datetime "last_played"
+    t.text "lyrics"
+    t.boolean "playing", default: false, null: false
+    t.string "title"
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.string "email_address", null: false
     t.string "password_digest", null: false
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
