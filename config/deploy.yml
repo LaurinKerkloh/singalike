@@ -14,7 +14,9 @@ registry:
 
 proxy:
   ssl: true
-  host: sing.kerkloh.com
+  hosts:
+    - sing.kerkloh.com
+    - sing.discdayscologne.de
 
 # Inject ENV variables into containers (secrets come from .kamal/secrets).
 env:
