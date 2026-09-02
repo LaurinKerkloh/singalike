@@ -1,7 +1,7 @@
-# 🎸 Singalike
+# 🎤❤️ Singalike
 
 A simple web app for picking which song to sing along to next, e.g. when sitting around a
-campfire 🔥 with a guitar.
+campfire with a guitar.
 
 ## How it works
 
