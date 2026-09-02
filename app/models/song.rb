@@ -2,7 +2,7 @@ class Song < ApplicationRecord
   has_many :likes
 
   scope :ordered, -> {
-    order(:artist)
+    order(:artist, :title)
   }
 
   scope :next_up, -> {
